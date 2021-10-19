@@ -1,18 +1,18 @@
 @extends('adminlte::page')
 
-@section('title', 'Collections')
+@section('title', __('Collections'))
 
 @section('content_header')
 <div class="container-fluid">
   <div class="row mb-2">
     <div class="col-sm-6">
-      <h1>Collections</h1>
+      <h1>{{ __('Collections') }}</h1>
     </div>
     <div class="col-sm-6">
       <ol class="breadcrumb float-sm-right">
-        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-        <li class="breadcrumb-item"><a href="{{ route('admin.collections.index') }}">Collections</a></li>
-        <li class="breadcrumb-item active">Edit Collection</li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('admin.collections.index') }}">{{ __('Collections') }}</a></li>
+        <li class="breadcrumb-item active">{{ __('Edit Collection') }}</li>
       </ol>
     </div>
   </div>
@@ -25,7 +25,7 @@
     <div class="card card-outline card-primary">
 
       <div class="card-header">
-        <h3 class="card-title">Edit Collection</h3>
+        <h3 class="card-title">{{ __('Edit Collection') }}</h3>
       </div>
       <!-- /.card-header -->
 
