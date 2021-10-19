@@ -21,7 +21,7 @@ class UserSeeder extends Seeder
         'password' => '$2y$10$3Bhnoyae/qczE.4AVPkUCe1wHsbrQTt3Hepq521R2Mfclan3hA13a',
       ]);
 
-      // $superAdmin->assignRole('Super Admin');
+      $superAdmin->assignRole('Super Admin');
 
       $admin = User::create([
         'name' => 'Admin',
@@ -30,7 +30,7 @@ class UserSeeder extends Seeder
         'password' => '$2y$10$3Bhnoyae/qczE.4AVPkUCe1wHsbrQTt3Hepq521R2Mfclan3hA13a',
       ]);
 
-      // $admin->assignRole('Admin');
+      $admin->assignRole('Admin');
 
       $member = User::create([
         'name' => 'Member',
@@ -39,6 +39,6 @@ class UserSeeder extends Seeder
         'password' => '$2y$10$3Bhnoyae/qczE.4AVPkUCe1wHsbrQTt3Hepq521R2Mfclan3hA13a',
       ]);
 
-      // $member->assignRole('Member');
+      $member->assignRole('Member');
     }
 }

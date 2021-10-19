@@ -322,12 +322,13 @@ return [
       'text' => 'Dashboard',
       'route'  => 'admin.dashboard',
       'icon' => 'fas fa-fw fa-tachometer-alt mr-1',
+      'can' => ['dashboard']
     ],
     [
       'text' => 'Collections',
       'route'  => 'admin.collections.index',
       'icon' => 'fas fa-fw fa-clipboard mr-1',
-      // 'can' => ['collections.create', 'collections.edit',  'collections.delete']
+      'can' => ['collections.create', 'collections.edit',  'collections.delete']
     ],
   ],
 

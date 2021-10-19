@@ -10,7 +10,7 @@ class CollectionController extends Controller
 {
   public function index()
   {
-    // $this->checkPermission(['collections.create', 'collections.edit', 'collections.delete']);
+    $this->checkPermission(['collections.create', 'collections.edit', 'collections.delete']);
 
     $collections = Collection::orderBy('name')->paginate($this->itemPerPage);
     $this->putSL($collections);
@@ -20,14 +20,14 @@ class CollectionController extends Controller
 
   public function create()
   {
-    // $this->checkPermission('collections.create');
+    $this->checkPermission('collections.create');
 
     return view('admin.collections.create');
   }
 
   public function store(Request $request)
   {
-    // $this->checkPermission('collections.create');
+    $this->checkPermission('collections.create');
     $payload = $request->validate([
       'name' => ['required', 'unique:collections,name', 'max:50'],
       'status' => ['required', 'boolean'],
@@ -41,14 +41,14 @@ class CollectionController extends Controller
 
   public function edit(Collection $collection)
   {
-    // $this->checkPermission('collections.edit');
+    $this->checkPermission('collections.edit');
 
     return view('admin.collections.edit', compact('collection'));
   }
 
   public function update(Request $request, Collection $collection)
   {
-    // $this->checkPermission('collections.edit');
+    $this->checkPermission('collections.edit');
 
     $payload = $request->validate([
       'name' => ['required', 'unique:collections,name,'.$collection->id, 'max:50'],
@@ -63,7 +63,7 @@ class CollectionController extends Controller
 
   public function destroy(Collection $collection)
   {
-    // $this->checkPermission('collections.delete');
+    $this->checkPermission('collections.delete');
 
     $collection->delete();
     return back()->with('success', __('Collection successfully deleted.'));
