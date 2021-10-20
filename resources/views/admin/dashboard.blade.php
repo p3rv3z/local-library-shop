@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', 'Dashboard')
 
@@ -7,13 +7,5 @@
 @stop
 
 @section('content')
-    <p>Welcome to this beautiful admin panel.</p>
-@stop
-
-@section('css')
-    <link rel="stylesheet" href="/css/admin_custom.css">
-@stop
-
-@section('js')
-    <script> console.log('Hi!'); </script>
+    <p>Hi, {{ auth()->user()->name }}. Welcome to Local Library Shop.</p>
 @stop
