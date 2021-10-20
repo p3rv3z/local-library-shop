@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('admin.layouts.app')
 
 @section('title', __('Collections'))
 
@@ -31,7 +31,7 @@
         <h3 class="card-title">{{ __('Collections List') }}</h3>
 
         <div class="card-tools">
-          <div class="input-group input-group-sm" style="width: 150px;">
+          <div class="input-group input-group-sm" style="width: 250px;">
             <input type="text" name="table_search" class="form-control float-right" placeholder="{{ __('Search') }}">
 
             <div class="input-group-append">
