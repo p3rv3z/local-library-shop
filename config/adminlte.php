@@ -14,7 +14,7 @@ return [
     |
     */
 
-  'title' => 'Local Library',
+  'title' => 'Bookshelf',
   'title_prefix' => '',
   'title_postfix' => '',
 
@@ -45,12 +45,12 @@ return [
     |
     */
 
-  'logo' => '<b>Admin</b>LTE',
+  'logo' => '<b>Bookshelf</b>',
   'logo_img' => 'vendor/adminlte/dist/img/AdminLTELogo.png',
   'logo_img_class' => 'brand-image img-circle elevation-3',
   'logo_img_xl' => null,
   'logo_img_xl_class' => 'brand-image-xs',
-  'logo_img_alt' => 'AdminLTE',
+  'logo_img_alt' => 'Bookshelf',
 
   /*
     |--------------------------------------------------------------------------
@@ -329,6 +329,18 @@ return [
       'route'  => 'admin.collections.index',
       'icon' => 'fas fa-fw fa-clipboard mr-1',
       'can' => ['collections.create', 'collections.edit',  'collections.delete']
+    ],
+    [
+      'text' => 'Cities',
+      'route'  => 'admin.cities.index',
+      'icon' => 'fas fa-fw fa-clipboard mr-1',
+      'can' => ['cities.create', 'cities.edit',  'cities.delete']
+    ],
+    [
+      'text' => 'Authors',
+      'route'  => 'admin.authors.index',
+      'icon' => 'fas fa-fw fa-clipboard mr-1',
+      'can' => ['authors.create', 'authors.edit',  'authors.delete']
     ],
   ],
 

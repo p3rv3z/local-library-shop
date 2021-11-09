@@ -5,10 +5,10 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Local Library Shop</title>
+  <title>Bookshelf</title>
 
   <!-- FAVICON -->
-  <link href="{{ asset('assets/img/favicon.png')}}" rel="shortcut icon">
+{{--  <link href="{{ asset('assets/img/favicon.png')}}" rel="shortcut icon">--}}
   <!-- PLUGINS CSS STYLE -->
 {{--  <link href="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet">--}}
   <!-- Bootstrap -->

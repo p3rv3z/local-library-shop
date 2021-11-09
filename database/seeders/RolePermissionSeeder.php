@@ -37,9 +37,17 @@ class RolePermissionSeeder extends Seeder
 
       ['name' => 'settings'],
 
+      ['name' => 'cities.create'],
+      ['name' => 'cities.edit'],
+      ['name' => 'cities.delete'],
+
       ['name' => 'collections.create'],
       ['name' => 'collections.edit'],
       ['name' => 'collections.delete'],
+
+      ['name' => 'authors.create'],
+      ['name' => 'authors.edit'],
+      ['name' => 'authors.delete'],
 
     ]);
   }
@@ -49,7 +57,9 @@ class RolePermissionSeeder extends Seeder
     Role::findByName('Super Admin')->givePermissionTo([
       'dashboard',
       'settings',
+      'cities.create', 'cities.edit', 'cities.delete',
       'collections.create', 'collections.edit', 'collections.delete',
+      'authors.create', 'authors.edit', 'authors.delete',
     ]);
   }
 }
