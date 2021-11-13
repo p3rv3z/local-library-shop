@@ -3,80 +3,49 @@
 namespace App\Http\Controllers\Member;
 
 use App\Http\Controllers\Controller;
+use App\Models\City;
 use Illuminate\Http\Request;
 
 class ProfileControlller extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         //
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function edit()
     {
-        //
+      $user = auth()->user();
+      $cities = City::where('status', 1)->orderBy('name')->get();
+      return view('member.profiles.edit', compact('user', 'cities'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+      $user = auth()->user();
+
+      $attributes = $request->validate([
+        'name' => 'required|string',
+        'date_of_birth' => 'nullable|date',
+        'gender' => 'nullable|in:MALE,FEMALE,OTHER',
+        'profession' => 'nullable|in:AUTHOR,STUDENT,OTHER',
+        'phone' => 'nullable|numeric',
+        'email' => 'required|email|unique:users,email,'.$user->id,
+        'city_id' => 'nullable|exists:cities,id',
+        'address' => 'nullable|string',
+        'avatar' => 'nullable|image'
+      ]);
+
+      $user->update($attributes);
+      return back();
+
+      return $request->all();
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
         //

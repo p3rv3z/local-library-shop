@@ -9,9 +9,9 @@
 
   <!-- FAVICON -->
 {{--  <link href="{{ asset('assets/img/favicon.png')}}" rel="shortcut icon">--}}
-  <!-- PLUGINS CSS STYLE -->
+<!-- PLUGINS CSS STYLE -->
 {{--  <link href="{{ asset('assets/plugins/jquery-ui/jquery-ui.min.css')}}" rel="stylesheet">--}}
-  <!-- Bootstrap -->
+<!-- Bootstrap -->
   <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css')}}">
   <link rel="stylesheet" href="{{ asset('assets/plugins/bootstrap/css/bootstrap-slider.css')}}">
   <!-- Font Awesome -->
@@ -25,11 +25,15 @@
   <!-- CUSTOM CSS -->
   <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
 
+{{--  <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">--}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
 
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+
+@stack('css')
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
-{{--<!--  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->--}}
+  {{--<!--  <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>-->--}}
 {{--<!--  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>-->--}}
   <![endif]-->
 
@@ -41,6 +45,7 @@
 @show
 @include('visitor.layouts.partials._footer')
 <!-- JAVASCRIPTS -->
+<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{asset('assets/plugins/jQuery/jquery.min.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -52,10 +57,10 @@
 <script src="{{asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('assets/plugins/fancybox/jquery.fancybox.pack.js')}}"></script>
 <script src="{{asset('assets/plugins/smoothscroll/SmoothScroll.min.js')}}"></script>
-<!-- google map -->
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCcABaamniA6OL5YvYSpB3pFMNrXwXnLwU&libraries=places"></script>
-<script src="{{asset('assets/plugins/google-map/gmap.js')}}"></script>
 <script src="{{asset('assets/js/script.js')}}"></script>
+{{--<script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>--}}
+<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
 
+@stack('js')
 </body>
 </html>

@@ -2700,4 +2700,17 @@ form textarea {
   text-decoration: none;
 }
 
+.my-button {
+  background: #28a745;
+  color: #fff;
+  padding: 8px 20px !important;
+  display: inline-block;
+  border: none !important;
+  outline: 0 !important;
+}
+
+.my-select {
+  outline: 0 !important;
+}
+
 /*# sourceMappingURL=maps/style.css.map */

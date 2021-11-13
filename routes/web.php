@@ -29,5 +29,7 @@ Route::as('visitor.')
 
 Route::middleware('auth')->as('member.')->group(function() {
   Route::get('member/profile', [ProfileControlller::class, 'authUserProfile'])->name('profile');
+  Route::get('member/profile/edit', [ProfileControlller::class, 'edit'])->name('profile.edit');
+  Route::patch('member/profile/update', [ProfileControlller::class, 'update'])->name('profile.update');
   Route::resource('member/books', BookController::class);
 });

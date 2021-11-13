@@ -8,28 +8,29 @@
       </div>
       <!-- User Name -->
       <h5 class="text-center">{{auth()->user()->name}}</h5>
-{{--      <p>Joined February 06, 2017</p>--}}
-      <p>Joined {{auth()->user()->created_at->format('M d, Y')}}</p>
-      <a href="user-profile.html" class="btn btn-main-sm">Edit Profile</a>
+      {{--      <p>Joined February 06, 2017</p>--}}
+      <p>Joined at {{auth()->user()->created_at->format('M d, Y')}}</p>
     </div>
     <!-- Dashboard Links -->
     <div class="widget user-dashboard-menu">
       <ul>
-{{--        <li class="active"><a href="dashboard-my-ads.html"><i class="fa fa-user"></i> My Ads</a></li>--}}
+        {{--        <li class="active"><a href="dashboard-my-ads.html"><i class="fa fa-user"></i> My Ads</a></li>--}}
         <li><a href="{{ route('member.books.index') }}"><i class="fa fa-user"></i> My Books <span>5</span></a></li>
         <li><a href="dashboard-favourite-ads.html"><i class="fa fa-bookmark-o"></i> My Orders <span>5</span></a></li>
         <li><a href="dashboard-archived-ads.html"><i class="fa fa-bookmark-o"></i>My Sells <span>12</span></a></li>
-        <li><a href="dashboard-pending-ads.html"><i class="fa fa-bookmark-o"></i> Lendign Requests<span>23</span></a></li>
+        <li><a href="dashboard-pending-ads.html"><i class="fa fa-bookmark-o"></i> Lendign Requests<span>23</span></a>
+        </li>
         <li><a href="#"><i class="fa fa-cog"></i> Logout</a></li>
-{{--        <li><a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete--}}
-{{--            Account</a></li>--}}
+        {{--        <li><a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete--}}
+        {{--            Account</a></li>--}}
       </ul>
     </div>
 
     <!-- delete-account modal -->
     <!-- delete account popup modal start-->
     <!-- Modal -->
-    <div class="modal fade" id="deleteaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" id="deleteaccount" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+         aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header border-bottom-0">

@@ -60,6 +60,7 @@
 }
 
 .nice-select.open .list {
+  width: inherit !important;
   opacity: 1;
   pointer-events: auto;
   -webkit-transform: scale(1) translateY(0);

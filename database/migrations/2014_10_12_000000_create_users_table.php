@@ -18,12 +18,13 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->date('date_of_birth')->nullable();
             $table->enum('gender', ['MALE', 'FEMALE', 'OTHER'])->nullable();
+            $table->enum('profession', ['AUTHOR', 'STUDENT', 'OTHER'])->nullable();
             $table->string('avatar')->nullable();
+            $table->text('address')->nullable();
+            $table->foreignId('city_id')->nullable();
 
             $table->float('longitude')->nullable();
             $table->float('latitude')->nullable();
-            $table->text('address')->nullable();
-            $table->foreignId('city_id')->nullable();
 
             $table->string('phone')->unique()->nullable();
             $table->string('email')->unique();

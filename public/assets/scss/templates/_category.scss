@@ -118,7 +118,7 @@
 				a {
 					font-size:15px;
 				}
-				
+
 			}
 		}
 		.view-switcher {
@@ -135,10 +135,11 @@
     border-radius: 0;
     .list {
     	border-radius: 0;
+      width: inherit !important;
     }
 }
 
-//  Client Slider 
+//  Client Slider
 
 .arrow-right,.arrow-left {
 	cursor: pointer;
