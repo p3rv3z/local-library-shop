@@ -8,55 +8,52 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\Permission\Traits\HasRoles;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+  use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var string[]
-     */
-    protected $fillable = [
-        'name',
-        'date_of_birth',
-        'gender',
-        'profession',
-        'avatar',
+  /**
+   * The attributes that are mass assignable.
+   *
+   * @var string[]
+   */
+  protected $fillable = [
+    'name',
+    'date_of_birth',
+    'gender',
+    'profession',
+    'avatar',
 
-        'longitude',
-        'latitude',
-        'address',
-        'city_id',
+    'longitude',
+    'latitude',
+    'address',
+    'city_id',
 
-        'phone',
-        'email',
-        'password',
-    ];
+    'phone',
+    'email',
+    'password',
+  ];
 
-    /**
-     * The attributes that should be hidden for serialization.
-     *
-     * @var array
-     */
-    protected $hidden = [
-        'password',
-        'remember_token',
-    ];
+  protected $hidden = [
+    'password',
+    'remember_token',
+  ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array
-     */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+  protected $casts = [
+    'email_verified_at' => 'datetime',
+  ];
 
-    public function city(): BelongsTo
-    {
-      return $this->belongsTo(City::class);
-    }
+  public function registerMediaCollections(): void
+  {
+    $this->addMediaCollection('user-avatars')->singleFile();
+  }
+
+  public function city(): BelongsTo
+  {
+    return $this->belongsTo(City::class);
+  }
 }

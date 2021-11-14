@@ -31,5 +31,8 @@ Route::middleware('auth')->as('member.')->group(function() {
   Route::get('member/profile', [ProfileControlller::class, 'authUserProfile'])->name('profile');
   Route::get('member/profile/edit', [ProfileControlller::class, 'edit'])->name('profile.edit');
   Route::patch('member/profile/update', [ProfileControlller::class, 'update'])->name('profile.update');
+  Route::get('member/profile/settings', [ProfileControlller::class, 'getProfileSettings'])->name('profile.settings.get');
+  Route::patch('member/change/password', [ProfileControlller::class, 'changePassword'])->name('change.password');
+  Route::patch('member/set/location', [ProfileControlller::class, 'setLocation'])->name('set.location');
   Route::resource('member/books', BookController::class);
 });

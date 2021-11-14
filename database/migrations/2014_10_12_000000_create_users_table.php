@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->text('address')->nullable();
             $table->foreignId('city_id')->nullable();
 
-            $table->float('longitude')->nullable();
-            $table->float('latitude')->nullable();
+            $table->double('longitude')->nullable();
+            $table->double('latitude')->nullable();
 
             $table->string('phone')->unique()->nullable();
             $table->string('email')->unique();
