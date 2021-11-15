@@ -129,9 +129,9 @@
                   <!-- City -->
                   <div class="row">
                     <div class="col-lg-6">
-                      <div class="form-group">
+                      <div class="form-group my-select">
                         <label for="city_id">City</label><br>
-                        <select name="city_id" class="form-control my-select w-100" data-live-search="true" id="city_id">
+                        <select name="city_id" class="form-control w-100" data-live-search="true" id="city_id">
                           <option value="" hidden>Choose one...</option>
                           @foreach($cities as $city)
                             <option value="{{ $city->id }}"

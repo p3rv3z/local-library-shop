@@ -22,11 +22,14 @@
   <!-- Fancy Box -->
   <link href="{{ asset('assets/plugins/fancybox/jquery.fancybox.pack.css')}}" rel="stylesheet">
   <link href="{{ asset('assets/plugins/jquery-nice-select/css/nice-select.css')}}" rel="stylesheet">
+
+{{--  bootstrap select picker--}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
   <!-- CUSTOM CSS -->
   <link href="{{ asset('assets/css/style.css')}}" rel="stylesheet">
 
 {{--  <link rel="stylesheet" href="{{ asset('vendor/select2/css/select2.min.css') }}">--}}
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
+
 
 
 @stack('css')
@@ -45,7 +48,6 @@
 @show
 @include('visitor.layouts.partials._footer')
 <!-- JAVASCRIPTS -->
-<script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{asset('assets/plugins/jQuery/jquery.min.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap/js/popper.min.js')}}"></script>
 <script src="{{asset('assets/plugins/bootstrap/js/bootstrap.min.js')}}"></script>
@@ -57,9 +59,11 @@
 <script src="{{asset('assets/plugins/jquery-nice-select/js/jquery.nice-select.min.js')}}"></script>
 <script src="{{asset('assets/plugins/fancybox/jquery.fancybox.pack.js')}}"></script>
 <script src="{{asset('assets/plugins/smoothscroll/SmoothScroll.min.js')}}"></script>
-<script src="{{asset('assets/js/script.js')}}"></script>
-{{--<script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>--}}
 <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+<script src="{{asset('assets/js/script.js')}}"></script>
+<script src="{{ asset('js/app.js') }}" defer></script>
+{{--<script src="{{asset('vendor/select2/js/select2.full.min.js')}}"></script>--}}
+
 
 @stack('js')
 </body>

@@ -2709,8 +2709,18 @@ form textarea {
   outline: 0 !important;
 }
 
-.my-select {
-  outline: 0 !important;
+.my-select .dropdown .btn{
+  border: solid 1px #ced4da !important;
+  border-radius: 2px !important;
+  height: 50px !important;
+  background-clip: padding-box !important;
+  background-color: #FFFFFF !important;
+  color: #666 !important;
+  box-shadow: none !important;
+  font-size: 15px !important;
+  outline: none !important;
+  padding-left: 12px !important;
+  padding-right: 12px !important;
+  margin: 0;
 }
-
 /*# sourceMappingURL=maps/style.css.map */
