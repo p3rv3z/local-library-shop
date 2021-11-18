@@ -20,7 +20,7 @@
         <li><a href="dashboard-archived-ads.html"><i class="fa fa-bookmark-o"></i>My Sells <span>12</span></a></li>
         <li><a href="dashboard-pending-ads.html"><i class="fa fa-bookmark-o"></i> Lendign Requests<span>23</span></a>
         </li>
-        <li><a href="#"><i class="fa fa-cog"></i> Logout</a></li>
+        <li><a href="{{ route('member.profile.settings.get') }}"><i class="fa fa-cog"></i>Settings</a></li>
         {{--        <li><a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete--}}
         {{--            Account</a></li>--}}
       </ul>

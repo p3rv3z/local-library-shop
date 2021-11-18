@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\City;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileControlller extends Controller
 {
@@ -19,14 +21,14 @@ class ProfileControlller extends Controller
 
     public function edit()
     {
-      $user = auth()->user();
+      $user = Auth::user();
       $cities = City::where('status', 1)->orderBy('name')->get();
       return view('member.profiles.edit', compact('user', 'cities'));
     }
 
     public function update(Request $request)
     {
-      $user = auth()->user();
+      $user = Auth::user();
 
       $attributes = $request->validate([
         'name' => 'required|string',
@@ -40,7 +42,15 @@ class ProfileControlller extends Controller
         'avatar' => 'nullable|image'
       ]);
 
+
       $user->update($attributes);
+
+      if ($request->hasFile('avatar')) {
+        $user
+          ->addMediaFromRequest('avatar')
+          ->usingFileName($this->getUniqueFileName('avatar'))
+          ->toMediaCollection('user-avatars');
+      }
       return back();
 
       return $request->all();
@@ -53,7 +63,47 @@ class ProfileControlller extends Controller
 
     public function authUserProfile()
     {
-      $user = auth()->user();
+      $user = Auth::user();
       return view('member.profiles.show', compact('user'));
     }
+
+    public function getProfileSettings()
+    {
+      $user = Auth::user();
+      return view('member.profiles.settings', compact('user'));
+    }
+
+    public function changePassword(Request $request)
+    {
+      $request->validate([
+        'current_password' => 'required',
+        'new_password' => 'required|min:8|confirmed',
+      ]);
+
+      $user = Auth::user();
+      $userPassword = $user->password;
+
+      if (!Hash::check($request->input('current_password'), $userPassword)) {
+        return back()->withErrors(['current_password'=>'Invalid password given']);
+      }
+
+      $user->password = Hash::make($request->input('new_password'));
+      $user->save();
+
+      return back();
+    }
+
+    public function setLocation(Request $request)
+    {
+      $attributes = $request->validate([
+        'latitude' => 'required|numeric|between:-90,90',
+        'longitude' => 'required|numeric|between:-180,180'
+      ]);
+
+      $user = Auth::user();
+      $user->update($attributes);
+
+      return back();
+    }
+
 }

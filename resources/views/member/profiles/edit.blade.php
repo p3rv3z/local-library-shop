@@ -163,7 +163,7 @@
                   <div class="form-group">
                     <label for="avatar">Avatar</label>
 
-                    <div x-data="imageViewer('{{ asset('assets/images/user/user-thumb.jpg') }}')"
+                    <div x-data="imageViewer('{{ $user->getFirstMediaUrl('user-avatars') ?? asset('assets/images/user/user-thumb.jpg') }}')"
                          class="form-group choose-file d-flex align-items-center">
                       <template x-if="imageUrl">
                         <div class="profile-thumb">
@@ -220,15 +220,6 @@
         },
       }
     }
-
-    function testLocation() {
-      navigator.geolocation.getCurrentPosition((position) => {
-        console.log(position.coords.longitude)
-        console.log(position.coords.latitude)
-      })
-    }
-
-    testLocation();
 
   </script>
 @endpush
