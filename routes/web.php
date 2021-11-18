@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\Admin\AuthorController;
 use App\Http\Controllers\Admin\CityController;
-use App\Http\Controllers\CollectionController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\BookController;
 use App\Http\Controllers\Member\ProfileControlller;
@@ -16,7 +16,7 @@ Route::prefix('admin')
   ->group(function () {
 
     Route::view('dashboard', 'admin.dashboard')->name('dashboard');
-    Route::resource('collections', CollectionController::class)->except('show');
+    Route::resource('categories', CategoryController::class)->except('show');
     Route::resource('authors', AuthorController::class)->except('show');
     Route::resource('cities', CityController::class)->except('show');
   });
