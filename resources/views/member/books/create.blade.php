@@ -6,18 +6,20 @@
       <div class="row">
         @include('member/layouts/partials/_left-sidebar')
         <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
-          <!-- Edit Profile Welcome Text -->
-          <div class="widget welcome-message">
-            <h2>Add New Book</h2>
-          </div>
           <!-- Edit Book Info -->
           <div class="row">
             <div class="col-lg-12 col-md-12">
               <div class="widget personal-info">
-                <h3 class="widget-header user">Book Information</h3>
-                <form method="POST" action="{{route('member.books.store')}}">
-                  @csrf
-                  <!-- Title -->
+                <!-- Edit Profile Welcome Text -->
+                <div class="widget-header user d-flex justify-content-between align-items-center">
+                  <h3 class="m-0">Edit Information</h3>
+                  <button class="text-white my-button m-0 d-lg-block d-none" form="update-profile">
+                    <i class="fa fa-refresh"></i><span class="ml-2">Update Info</span>
+                  </button>
+                </div>
+                <form method="POST" action="{{route('member.books.store')}}" enctype="multipart/form-data" id="save-book-info" class="needs-validation">
+                @csrf
+                <!-- Title -->
                   <div class="form-group">
                     <label for="title">Title</label>
                     <input name="title" type="text" class="form-control" id="title" value="{{ old('title') }}"
@@ -82,7 +84,7 @@
                       {{--is free--}}
                       <div class="form-group">
                         <label for="is_free">is Free?</label><br>
-                        <select name="is_free" type="number" class="form-control w-100" id="is_free">
+                        <select name="is_free" class="form-control w-100" id="is_free">
                           <option value="" hidden>Choose...</option>
                           <option value="1">Yes</option>
                           <option value="0">No</option>
@@ -154,81 +156,62 @@
                     </div>
                   </div>
 
-                  <!-- File chooser -->
-                {{--                  <div class="form-group choose-file d-inline-flex">--}}
-                {{--                    <i class="fa fa-user text-center px-3"></i>--}}
-                {{--                    <input type="file" class="form-control-file mt-2 pt-1" id="input-file">--}}
-                {{--                  </div>--}}
-                <!-- Comunity Name -->
-                {{--                  <div class="form-group">--}}
-                {{--                    <label for="comunity-name">Comunity Name</label>--}}
-                {{--                    <input type="text" class="form-control" id="comunity-name">--}}
-                {{--                  </div>--}}
-                <!-- Checkbox -->
-                {{--                  <div class="form-check">--}}
-                {{--                    <label class="form-check-label" for="hide-profile">--}}
-                {{--                      <input class="form-check-input mt-1" type="checkbox" value="" id="hide-profile">--}}
-                {{--                      Hide Profile from Public/Comunity--}}
-                {{--                    </label>--}}
-                {{--                  </div>--}}
-                <!-- Zip Code -->
-                {{--                  <div class="form-group">--}}
-                {{--                    <label for="zip-code">Zip Code</label>--}}
-                {{--                    <input type="text" class="form-control" id="zip-code">--}}
-                {{--                  </div>--}}
-                <!-- Submit button -->
-                  <button class="btn btn-transparent">Save</button>
+                  <!-- Book Cover -->
+                  <div class="form-group">
+                    <label for="book_cover">Book Cover</label>
+
+                    <div class="form-group choose-file d-flex align-items-center">
+                      <input name="book_cover" type="file" accept="image/png, image/jpeg, image/jpg" class="ml-2 form-control-file" id="book_cover" >
+                      @error('book_cover')
+                      <span class="text-danger"><b>{{$message}}</b></span>
+                      @enderror
+                    </div>
+                  </div>
+
+                  <!-- Book Sample Pdf -->
+                  <div class="form-group">
+                    <label for="sample_pdf">Book Sample PDF</label>
+
+                    <div class="form-group choose-file d-flex align-items-center">
+                      <input name="sample_pdf" type="file" accept="application/pdf" class="ml-2 form-control-file" id="sample_pdf">
+                      @error('sample_pdf')
+                      <span class="text-danger"><b>{{$message}}</b></span>
+                      @enderror
+                    </div>
+                  </div>
+
+                  <button class="text-white my-button m-0 d-block d-lg-none w-100" form="save-book-info">
+                    <i class="fa fa-save"></i><span class="ml-2">Save Information</span>
+                  </button>
                 </form>
               </div>
             </div>
-          {{--            <div class="col-lg-6 col-md-6">--}}
-          <!-- Change Password -->
-          {{--              <div class="widget change-password">--}}
-          {{--                <h3 class="widget-header user">Edit Password</h3>--}}
-          {{--                <form action="#">--}}
-          <!-- Current Password -->
-          {{--                  <div class="form-group">--}}
-          {{--                    <label for="current-password">Current Password</label>--}}
-          {{--                    <input type="password" class="form-control" id="current-password">--}}
-          {{--                  </div>--}}
-          <!-- New Password -->
-          {{--                  <div class="form-group">--}}
-          {{--                    <label for="new-password">New Password</label>--}}
-          {{--                    <input type="password" class="form-control" id="new-password">--}}
-          {{--                  </div>--}}
-          <!-- Confirm New Password -->
-          {{--                  <div class="form-group">--}}
-          {{--                    <label for="confirm-password">Confirm New Password</label>--}}
-          {{--                    <input type="password" class="form-control" id="confirm-password">--}}
-          {{--                  </div>--}}
-          <!-- Submit Button -->
-          {{--                  <button class="btn btn-transparent">Change Password</button>--}}
-          {{--                </form>--}}
-          {{--              </div>--}}
-          {{--            </div>--}}
-          {{--            <div class="col-lg-6 col-md-6">--}}
-          <!-- Change Email Address -->
-          {{--              <div class="widget change-email mb-0">--}}
-          {{--                <h3 class="widget-header user">Edit Email Address</h3>--}}
-          {{--                <form action="#">--}}
-          <!-- Current Password -->
-          {{--                  <div class="form-group">--}}
-          {{--                    <label for="current-email">Current Email</label>--}}
-          {{--                    <input type="email" class="form-control" id="current-email">--}}
-          {{--                  </div>--}}
-          <!-- New email -->
-          {{--                  <div class="form-group">--}}
-          {{--                    <label for="new-email">New email</label>--}}
-          {{--                    <input type="email" class="form-control" id="new-email">--}}
-          {{--                  </div>--}}
-          <!-- Submit Button -->
-            {{--                  <button class="btn btn-transparent">Change email</button>--}}
-            {{--                </form>--}}
-            {{--              </div>--}}
-            {{--            </div>--}}
           </div>
         </div>
       </div>
     </div>
   </section>
 @endsection
+
+@push('js')
+  <script>
+    function imageViewer(src = '') {
+      return {
+        imageUrl: src,
+
+        fileChosen(event) {
+          this.fileToDataUrl(event, src => this.imageUrl = src)
+        },
+
+        fileToDataUrl(event, callback) {
+          if (!event.target.files.length) return
+
+          let file = event.target.files[0], reader = new FileReader()
+
+          reader.readAsDataURL(file)
+          reader.onload = e => callback(e.target.result)
+        },
+      }
+    }
+  </script>
+@endpush

@@ -2709,6 +2709,10 @@ form textarea {
   outline: 0 !important;
 }
 
+.logout-button {
+  outline: 0 !important;
+}
+
 .my-select .dropdown .btn{
   border: solid 1px #ced4da !important;
   border-radius: 2px !important;

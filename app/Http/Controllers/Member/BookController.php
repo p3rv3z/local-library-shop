@@ -44,7 +44,7 @@ class BookController extends Controller
 //    return $request;
 //    $this->checkPermission('books.create');
     $payload = $request->validate([
-      'title' => ['required', 'unique:books,title'],
+      'title' => ['required', 'string'],
       'description' => ['required', 'string'],
       'isbn' => ['required', 'string'],
       'edition' => ['required', 'string'],
@@ -55,11 +55,30 @@ class BookController extends Controller
       'is_sellable' => ['required', 'boolean'],
       'author_id' => ['required', 'exists:authors,id'],
       'collection_id' => ['required', 'exists:collections,id'],
+      'book_cover' => ['nullable', 'image'],
+      'sample_pdf' => ['nullable', 'file']
     ]);
 //    $payload['slug'] = Str::slug($payload['name']);
+// missings book owner
 
-    Book::create($payload);
-    return back()->with('success', __('Book successfully created.'));
+//    return $payload;
+    $book = Book::create($payload);
+
+    if ($request->hasFile('book_cover')) {
+      $book
+        ->addMediaFromRequest('book_cover')
+        ->usingFileName($this->getUniqueFileName('book_cover'))
+        ->toMediaCollection('book-covers');
+    }
+
+    if ($request->hasFile('sample_pdf')) {
+      $book
+        ->addMediaFromRequest('sample_pdf')
+        ->usingFileName($this->getUniqueFileName('sample_pdf'))
+        ->toMediaCollection('book-sample-pdfs');
+    }
+
+    return redirect()->route('member.books.index');
   }
 
   /**

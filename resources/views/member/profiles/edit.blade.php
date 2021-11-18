@@ -7,11 +7,6 @@
       <div class="row">
         @include('member/layouts/partials/_left-sidebar')
         <div class="col-md-10 offset-md-1 col-lg-8 offset-lg-0">
-          <!-- Edit Profile Welcome Text -->
-          <div class="widget alert alert-info" role="alert">
-            <i class="fa fa-info-circle"></i> For better user experience please share your location by allowing the
-            pop-up.
-          </div>
           <!-- Edit Personal Info -->
           <div class="row">
             <div class="col-lg-12 col-md-12">
@@ -197,9 +192,6 @@
     $(document).ready(function() {
       $('#city_id').niceSelect('destroy');
       $('#city_id').selectpicker();
-      // $('#city_id').select2(
-      //   {theme: "classic"}
-      // );
     });
 
     function imageViewer(src = '') {

@@ -13,6 +13,7 @@ class CreateBooksTable extends Migration
    */
   public function up()
   {
+//    add book owner
     Schema::create('books', function (Blueprint $table) {
       $table->id();
       $table->string('title');
@@ -21,9 +22,10 @@ class CreateBooksTable extends Migration
       $table->string('edition')->nullable();
       $table->integer('pages')->default(0);
       $table->integer('price')->default(0);
+      $table->integer('lending_charge')->default(0);
       $table->boolean('is_free')->default(0);
       $table->boolean('is_sellable')->default(0);
-      $table->boolean('is_lendable')->default(0);
+//      $table->boolean('is_lendable')->default(0);
       $table->boolean('is_sold')->default(0);
       $table->boolean('status')->default(0);
       $table->foreignId('author_id')->nullable();

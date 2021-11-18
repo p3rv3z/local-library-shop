@@ -14,13 +14,14 @@
     <!-- Dashboard Links -->
     <div class="widget user-dashboard-menu">
       <ul>
-        {{--        <li class="active"><a href="dashboard-my-ads.html"><i class="fa fa-user"></i> My Ads</a></li>--}}
-        <li><a href="{{ route('member.books.index') }}"><i class="fa fa-user"></i> My Books <span>5</span></a></li>
+        <li @if (request()->is('member/profile*')) class="active" @endif><a href="{{ route('member.profile') }}"><i class="fa fa-user"></i> My Profile</a></li>
+        <li @if (request()->is('member/books*')) class="active" @endif><a href="{{ route('member.books.index') }}"><i
+              class="fa fa-user"></i> My Books <span>5</span></a></li>
         <li><a href="dashboard-favourite-ads.html"><i class="fa fa-bookmark-o"></i> My Orders <span>5</span></a></li>
         <li><a href="dashboard-archived-ads.html"><i class="fa fa-bookmark-o"></i>My Sells <span>12</span></a></li>
-        <li><a href="dashboard-pending-ads.html"><i class="fa fa-bookmark-o"></i> Lendign Requests<span>23</span></a>
+        <li @if (request()->is('member/profile/settings*')) class="active" @endif><a
+            href="dashboard-pending-ads.html"><i class="fa fa-bookmark-o"></i> Lendign Requests<span>23</span></a>
         </li>
-        <li><a href="{{ route('member.profile.settings.get') }}"><i class="fa fa-cog"></i>Settings</a></li>
         {{--        <li><a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete--}}
         {{--            Account</a></li>--}}
       </ul>
