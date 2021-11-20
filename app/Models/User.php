@@ -56,4 +56,8 @@ class User extends Authenticatable implements HasMedia
   {
     return $this->belongsTo(City::class);
   }
+
+  public function books(){
+    return $this->hasMany(Book::class, 'owner_id');
+  }
 }

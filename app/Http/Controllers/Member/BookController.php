@@ -18,7 +18,13 @@ class BookController extends Controller
    */
   public function index()
   {
-    return view('member.books.index');
+    $books = Book::with(['category', 'author', 'owner'])
+      ->whereHas('owner', function($query){
+        $query->where('owner_id', auth()->id());
+      })->paginate(2);
+
+//    return $books;
+    return view('member.books.index', compact('books'));
   }
 
   /**
@@ -46,14 +52,16 @@ class BookController extends Controller
     $payload = $request->validate([
       'title' => ['required', 'string'],
       'description' => ['required', 'string'],
-      'isbn' => ['required', 'string'],
-      'edition' => ['required', 'string'],
+      'isbn' => ['nullable', 'string'],
+      'edition' => ['nullable', 'string'],
       'pages' => ['required'],
       'price' => ['required'],
       'is_free' => ['required', 'boolean'],
       'is_lendable' => ['required', 'boolean'],
       'is_sellable' => ['required', 'boolean'],
+//      'status' => ['required', 'boolean'],
       'author_id' => ['required', 'exists:authors,id'],
+//      'publisher_id' => ['required', 'exists:publishers,id'],
       'collection_id' => ['required', 'exists:collections,id'],
       'book_cover' => ['nullable', 'image'],
       'sample_pdf' => ['nullable', 'file']
@@ -62,6 +70,9 @@ class BookController extends Controller
 // missings book owner
 
 //    return $payload;
+    $authId = auth()->id();
+
+    $payload['owner_id'] = $authId;
     $book = Book::create($payload);
 
     if ($request->hasFile('book_cover')) {
@@ -92,27 +103,53 @@ class BookController extends Controller
     //
   }
 
-  /**
-   * Show the form for editing the specified resource.
-   *
-   * @param \App\Models\Book $book
-   * @return \Illuminate\Http\Response
-   */
   public function edit(Book $book)
   {
-    //
+    $authors = Author::where('status', 1)->get();
+    $collections = Collection::where('status', 1)->get();
+    return view('member.books.edit', compact('book', 'authors', 'collections'));
   }
 
-  /**
-   * Update the specified resource in storage.
-   *
-   * @param \Illuminate\Http\Request $request
-   * @param \App\Models\Book $book
-   * @return \Illuminate\Http\Response
-   */
   public function update(Request $request, Book $book)
   {
-    //
+    $payload = $request->validate([
+      'title' => ['required', 'string'],
+      'description' => ['required', 'string'],
+      'isbn' => ['nullable', 'string'],
+      'edition' => ['nullable', 'string'],
+      'pages' => ['required'],
+      'price' => ['required'],
+      'is_free' => ['required', 'boolean'],
+      'is_lendable' => ['required', 'boolean'],
+      'is_sellable' => ['required', 'boolean'],
+//      'status' => ['required', 'boolean'],
+      'author_id' => ['required', 'exists:authors,id'],
+//      'publisher_id' => ['required', 'exists:publishers,id'],
+      'collection_id' => ['required', 'exists:collections,id'],
+      'book_cover' => ['nullable', 'image'],
+      'sample_pdf' => ['nullable', 'file']
+    ]);
+
+    $authId = auth()->id();
+
+    $payload['owner_id'] = $authId;
+    $book->update($payload);
+
+    if ($request->hasFile('book_cover')) {
+      $book
+        ->addMediaFromRequest('book_cover')
+        ->usingFileName($this->getUniqueFileName('book_cover'))
+        ->toMediaCollection('book-covers');
+    }
+
+    if ($request->hasFile('sample_pdf')) {
+      $book
+        ->addMediaFromRequest('sample_pdf')
+        ->usingFileName($this->getUniqueFileName('sample_pdf'))
+        ->toMediaCollection('book-sample-pdfs');
+    }
+
+    return redirect()->route('member.books.index');
   }
 
   /**
@@ -123,6 +160,7 @@ class BookController extends Controller
    */
   public function destroy(Book $book)
   {
-    //
+    $book->delete();
+    return back();
   }
 }
