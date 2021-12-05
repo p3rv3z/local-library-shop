@@ -21,13 +21,9 @@ Route::prefix('admin')
     Route::resource('cities', CityController::class)->except('show');
   });
 
-//Route::get('/home', [HomeController::class, 'index'])->name('home');
-Route::as('visitor.')
-  ->group(function () {
-    Route::view('/', 'visitor.home')->name('home');
-  });
-
-Route::middleware('auth')->as('member.')->group(function() {
+Route::middleware('auth')
+  ->as('member.')
+  ->group(function() {
   Route::get('member/profile', [ProfileControlller::class, 'authUserProfile'])->name('profile');
   Route::get('member/profile/edit', [ProfileControlller::class, 'edit'])->name('profile.edit');
   Route::patch('member/profile/update', [ProfileControlller::class, 'update'])->name('profile.update');
@@ -36,3 +32,14 @@ Route::middleware('auth')->as('member.')->group(function() {
   Route::patch('member/set/location', [ProfileControlller::class, 'setLocation'])->name('set.location');
   Route::resource('member/books', BookController::class);
 });
+
+
+//Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::as('visitor.')->middleware('auth:sanctum')
+  ->group(function () {
+    Route::get('/', [HomeController::class, 'showHome'])->name('home');
+    Route::get('/books/{book}', [BookController::class, 'showBookDetails'])->name('show.book.details');
+    Route::get('/categories/{category}/book', [BookController::class, 'booksByCategory'])->name('show.books.by.categories');
+    Route::get('/authors/{author}/book', [BookController::class, 'booksByAuthor'])->name('show.books.by.authors');
+    Route::get('/search', [BookController::class, 'bookSearch'])->name('search');
+  });

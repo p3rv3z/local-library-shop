@@ -14,31 +14,42 @@
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto main-nav ">
               <li class="nav-item active">
-                <a class="nav-link" href="index.html">Home</a>
+                <a class="nav-link" href="{{ route('visitor.home') }}">Home</a>
               </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Collections</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Authors</a>
-              </li>
-              <li class="nav-item active">
-                <a class="nav-link" href="index.html">Members</a>
-              </li>
-              {{--              <li class="nav-item dropdown dropdown-slide">--}}
-              {{--                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="">Dashboard<span><i--}}
-              {{--                      class="fa fa-angle-down"></i></span>--}}
-              {{--                </a>--}}
+{{--              <li class="nav-item active">--}}
+{{--                <a class="nav-link" href="index.html">Categories</a>--}}
+{{--              </li>--}}
+{{--              <li class="nav-item active">--}}
+{{--                <a class="nav-link" href="index.html">Authors</a>--}}
+{{--              </li>--}}
+              <li class="nav-item dropdown dropdown-slide">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="">Categories<span><i
+                      class="fa fa-angle-down"></i></span>
+                </a>
 
-              {{--                <!-- Dropdown list -->--}}
-              {{--                <div class="dropdown-menu">--}}
-              {{--                  <a class="dropdown-item" href="dashboard.html">Dashboard</a>--}}
-              {{--                  <a class="dropdown-item" href="dashboard-my-ads.html">Dashboard My Ads</a>--}}
-              {{--                  <a class="dropdown-item" href="dashboard-favourite-ads.html">Dashboard Favourite Ads</a>--}}
-              {{--                  <a class="dropdown-item" href="dashboard-archived-ads.html">Dashboard Archived Ads</a>--}}
-              {{--                  <a class="dropdown-item" href="dashboard-pending-ads.html">Dashboard Pending Ads</a>--}}
-              {{--                </div>--}}
-              {{--              </li>--}}
+                @php($collections = \App\Models\Collection::all())
+
+                <!-- Dropdown list -->
+                <div class="dropdown-menu">
+                  @foreach($collections as $collection)
+                  <a class="dropdown-item" href="{{ route('visitor.show.books.by.categories', $collection->id) }}">{{ $collection->name }}</a>
+                  @endforeach
+                </div>
+              </li>
+              <li class="nav-item dropdown dropdown-slide">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="">Authors<span><i
+                      class="fa fa-angle-down"></i></span>
+                </a>
+
+              @php($authors = \App\Models\Author::all())
+
+              <!-- Dropdown list -->
+                <div class="dropdown-menu">
+                  @foreach($authors as $author)
+                    <a class="dropdown-item" href="{{ route('visitor.show.books.by.authors', $author->id) }}">{{ $author->name }}</a>
+                  @endforeach
+                </div>
+              </li>
               {{--              <li class="nav-item dropdown dropdown-slide">--}}
               {{--                <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown" aria-haspopup="true"--}}
               {{--                   aria-expanded="false">--}}

@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\Category;
 use App\Models\City;
 use App\Models\Collection;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class BookController extends Controller
@@ -19,7 +21,7 @@ class BookController extends Controller
   public function index()
   {
     $books = Book::with(['category', 'author', 'owner'])
-      ->whereHas('owner', function($query){
+      ->whereHas('owner', function ($query) {
         $query->where('owner_id', auth()->id());
       })->paginate(2);
 
@@ -56,9 +58,7 @@ class BookController extends Controller
       'edition' => ['nullable', 'string'],
       'pages' => ['required'],
       'price' => ['required'],
-      'is_free' => ['required', 'boolean'],
-      'is_lendable' => ['required', 'boolean'],
-      'is_sellable' => ['required', 'boolean'],
+      'lending_rate' => ['required'],
 //      'status' => ['required', 'boolean'],
       'author_id' => ['required', 'exists:authors,id'],
 //      'publisher_id' => ['required', 'exists:publishers,id'],
@@ -119,9 +119,7 @@ class BookController extends Controller
       'edition' => ['nullable', 'string'],
       'pages' => ['required'],
       'price' => ['required'],
-      'is_free' => ['required', 'boolean'],
-      'is_lendable' => ['required', 'boolean'],
-      'is_sellable' => ['required', 'boolean'],
+      'lending_rate' => ['required'],
 //      'status' => ['required', 'boolean'],
       'author_id' => ['required', 'exists:authors,id'],
 //      'publisher_id' => ['required', 'exists:publishers,id'],
@@ -152,15 +150,85 @@ class BookController extends Controller
     return redirect()->route('member.books.index');
   }
 
-  /**
-   * Remove the specified resource from storage.
-   *
-   * @param \App\Models\Book $book
-   * @return \Illuminate\Http\Response
-   */
   public function destroy(Book $book)
   {
     $book->delete();
     return back();
+  }
+
+  public function showBookDetails(Book $book)
+  {
+    $authUser = \Auth::user();
+
+    $book = $book
+      ->where('id', $book->id)
+      ->addSelect(['distance' => User::select(\DB::raw("ST_Distance_Sphere(
+        POINT($authUser->longitude, $authUser->latitude), POINT(longitude, latitude))"))
+        ->whereColumn('id', 'books.owner_id')
+        ->limit(1)
+      ])->first();
+
+    return view('visitor.books.show', compact('book'));
+  }
+
+  public function bookSearch(Request $request)
+  {
+    $collections = Collection::where('status', 1)->get();
+    $cities = City::where('status', 1)->get();
+
+    $authUser = Auth()->user();
+
+    $books = Book::when($term = $request->input('term'), function ($q) use ($term) {
+      $q->where('title', 'LIKE', "%{$term}%");
+    })
+      ->when($category = $request->input('category'), function ($q) use ($category) {
+        $q->where('collection_id', $category);
+      })
+      ->addSelect(['distance' => User::select(\DB::raw("ST_Distance_Sphere(
+        POINT($authUser->longitude, $authUser->latitude), POINT(longitude, latitude)
+      )"))
+        ->whereColumn('id', 'books.owner_id')
+        ->limit(1)
+      ])
+      ->limit(20)
+      ->get();
+
+    return view('visitor.books.search-results', compact('books', 'collections', 'cities'));
+  }
+
+  public function booksByCategory($categoryId)
+  {
+    $authUser = \Auth::user();
+
+    $collection = Collection::where('id', $categoryId)->first();
+
+    $books = Book::orderBy('id')
+      ->addSelect(['distance' => User::select(\DB::raw("ST_Distance_Sphere(
+        POINT($authUser->longitude, $authUser->latitude), POINT(longitude, latitude))"))
+        ->whereColumn('id', 'books.owner_id')
+        ->limit(1)
+      ])
+      ->get()
+      ->take(20);
+
+    return view('visitor.books.books-by-category', compact('books', 'collection'));
+  }
+
+  public function booksByAuthor($authorId)
+  {
+    $authUser = \Auth::user();
+
+    $author = Author::where('id', $authorId)->first();
+
+    $books = Book::orderBy('id')
+      ->addSelect(['distance' => User::select(\DB::raw("ST_Distance_Sphere(
+        POINT($authUser->longitude, $authUser->latitude), POINT(longitude, latitude))"))
+        ->whereColumn('id', 'books.owner_id')
+        ->limit(1)
+      ])
+      ->get()
+      ->take(20);
+
+    return view('visitor.books.books-by-author', compact('books', 'author'));
   }
 }

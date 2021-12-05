@@ -17,28 +17,22 @@
               <a href="{{ route('member.books.create') }}" class="btn btn-main-sm">Add New</a>
             </div>
             <table class="table table-responsive product-dashboard-table">
-              <thead>
-              <tr>
-                <th>Cover</th>
-                <th>Title</th>
-                <th class="text-center"></th>
-                <th class="text-center">Action</th>
-              </tr>
-              </thead>
               <tbody>
               @foreach($books as $book)
                 <tr>
                   <td class="product-thumb">
-                    <img width="109.2px" height="156.24px" src="{{ $book->getFirstMediaUrl('book-covers') ?? asset("assets/images/products/products-1.jpg")}}" alt="image description"></td>
+                    <img width="109.2px" height="156.24px" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/110x157'}}" alt="image description"></td>
                   <td class="pl-2 product-details">
-                    <h3 class="title">{{$book->title}}</h3>
+                    <h3 class="title">{{$book->title}} </h3>
+                    <span class="add-id"><strong>Price: </strong>{{$book->price}} TK</span>
+                    <span class="add-id"><strong>Lending rate:</strong>{{$book->lending_rate}} TK per day</span>
                     <span class="add-id"><strong>Category</strong>{{$book->category->name}}</span>
                     <span class="add-id"><strong>Author</strong>{{$book->author->name}}</span>
                     <span><strong>Added on: </strong><time>{{$book->created_at->format('d F, Y')}}</time> </span>
-                    <span class="status active"><strong>Status</strong>Active</span>
+{{--                    <span class="status active"><strong>Status</strong>Active</span>--}}
 {{--                    <span class="location"><strong>City</strong>Dhaka,Bangladesh</span>--}}
                   </td>
-                  <td class="product-category"><span class="categories"></span></td>
+                  <td class="product-category d-none"><span class="categories"></span></td>
                   <td class="action" data-title="Action">
                     <div class="">
                       <ul class="list-inline justify-content-center">

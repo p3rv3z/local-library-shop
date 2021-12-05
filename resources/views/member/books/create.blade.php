@@ -70,56 +70,22 @@
                   <div class="form-group">
                     <label for="price">Price</label>
                     <input name="price" type="number" class="form-control" id="price" value="{{ old('price') }}"
-                           placeholder="Price">
+                           placeholder="Price" min="0">
                     @error('price')
                     <span class="text-danger"><b>{{$message}}</b></span>
                     @enderror
                   </div>
 
-                  <div class="row">
-                    <div class="col-md-4">
-                      {{--is free--}}
-                      <div class="form-group">
-                        <label for="is_free">is Free?</label><br>
-                        <select name="is_free" class="form-control w-100" id="is_free">
-                          <option value="" hidden>Choose...</option>
-                          <option value="1">Yes</option>
-                          <option value="0">No</option>
-                        </select>
-                        @error('is_free')
-                        <span class="text-danger"><b>{{$message}}</b></span>
-                        @enderror
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      {{--is sellable--}}
-                      <div class="form-group">
-                        <label for="is_lendable">is Lendable?</label><br>
-                        <select name="is_lendable" class="form-control w-100" id="is_lendable">
-                          <option value="" hidden>Choose...</option>
-                          <option value="1">Yes</option>
-                          <option value="0">No</option>
-                        </select>
-                        @error('is_lendable')
-                        <span class="text-danger"><b>{{$message}}</b></span>
-                        @enderror
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      {{--is sellable--}}
-                      <div class="form-group">
-                        <label for="is_sellable">is Sellable?</label><br>
-                        <select name="is_sellable" class="form-control w-100" id="is_sellable">
-                          <option value="" hidden>Choose...</option>
-                          <option value="1">Yes</option>
-                          <option value="0">No</option>
-                        </select>
-                        @error('is_sellable')
-                        <span class="text-danger"><b>{{$message}}</b></span>
-                        @enderror
-                      </div>
-                    </div>
+                  {{--Lending Rate--}}
+                  <div class="form-group">
+                    <label for="lending_rate">Lending Rate</label>
+                    <input name="lending_rate" type="number" class="form-control" id="lending_rate" value="{{ old('lending_rate') }}"
+                           placeholder="Price" min="0">
+                    @error('lending_rate')
+                    <span class="text-danger"><b>{{$message}}</b></span>
+                    @enderror
                   </div>
+
                   <div class="row">
                     <div class="col-md-6">
                       {{--collection--}}
@@ -193,25 +159,25 @@
   </section>
 @endsection
 
-@push('js')
-  <script>
-    function imageViewer(src = '') {
-      return {
-        imageUrl: src,
+{{--@push('js')--}}
+{{--  <script>--}}
+{{--    function imageViewer(src = '') {--}}
+{{--      return {--}}
+{{--        imageUrl: src,--}}
 
-        fileChosen(event) {
-          this.fileToDataUrl(event, src => this.imageUrl = src)
-        },
+{{--        fileChosen(event) {--}}
+{{--          this.fileToDataUrl(event, src => this.imageUrl = src)--}}
+{{--        },--}}
 
-        fileToDataUrl(event, callback) {
-          if (!event.target.files.length) return
+{{--        fileToDataUrl(event, callback) {--}}
+{{--          if (!event.target.files.length) return--}}
 
-          let file = event.target.files[0], reader = new FileReader()
+{{--          let file = event.target.files[0], reader = new FileReader()--}}
 
-          reader.readAsDataURL(file)
-          reader.onload = e => callback(e.target.result)
-        },
-      }
-    }
-  </script>
-@endpush
+{{--          reader.readAsDataURL(file)--}}
+{{--          reader.onload = e => callback(e.target.result)--}}
+{{--        },--}}
+{{--      }--}}
+{{--    }--}}
+{{--  </script>--}}
+{{--@endpush--}}

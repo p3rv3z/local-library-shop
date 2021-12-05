@@ -78,50 +78,16 @@
                     @enderror
                   </div>
 
-                  <div class="row">
-                    <div class="col-md-4">
-                      {{--is free--}}
-                      <div class="form-group">
-                        <label for="is_free">is Free?</label><br>
-                        <select name="is_free" class="form-control w-100" id="is_free">
-                          <option value="" hidden>Choose...</option>
-                          <option value="1" @if($book->is_free) selected @endif>Yes</option>
-                          <option value="0" @if(!$book->is_free) selected @endif>No</option>
-                        </select>
-                        @error('is_free')
-                        <span class="text-danger"><b>{{$message}}</b></span>
-                        @enderror
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      {{--is sellable--}}
-                      <div class="form-group">
-                        <label for="is_lendable">is Lendable?</label><br>
-                        <select name="is_lendable" class="form-control w-100" id="is_lendable">
-                          <option value="" hidden>Choose...</option>
-                          <option value="1" @if($book->is_lendable) selected @endif>Yes</option>
-                          <option value="0" @if(!$book->is_lendable) selected @endif>No</option>
-                        </select>
-                        @error('is_lendable')
-                        <span class="text-danger"><b>{{$message}}</b></span>
-                        @enderror
-                      </div>
-                    </div>
-                    <div class="col-md-4">
-                      {{--is sellable--}}
-                      <div class="form-group">
-                        <label for="is_sellable">is Sellable?</label><br>
-                        <select name="is_sellable" class="form-control w-100" id="is_sellable">
-                          <option value="" hidden>Choose...</option>
-                          <option value="1" @if($book->is_sellable) selected @endif>Yes</option>
-                          <option value="0" @if(!$book->is_sellable) selected @endif>No</option>
-                        </select>
-                        @error('is_sellable')
-                        <span class="text-danger"><b>{{$message}}</b></span>
-                        @enderror
-                      </div>
-                    </div>
+                  {{--Lending Rate--}}
+                  <div class="form-group">
+                    <label for="lending_rate">Lending Rate</label>
+                    <input name="lending_rate" type="number" class="form-control" id="lending_rate" value="{{ old('lending_rate', $book->lending_rate) }}"
+                           placeholder="Price" min="0">
+                    @error('lending_rate')
+                    <span class="text-danger"><b>{{$message}}</b></span>
+                    @enderror
                   </div>
+
                   <div class="row">
                     <div class="col-md-6">
                       {{--collection--}}
