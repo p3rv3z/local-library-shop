@@ -54,17 +54,17 @@
       <div class="row">
         <!-- offer 01 -->
         <div class="col-lg-12">
-          <div class="trending-ads-slide">
+          <div class="row">
             @forelse($books as $book)
-              <div class="col-sm-12 col-lg-4">
+              <div class="col-3">
                 <!-- product card -->
-                <div class="product-item bg-light">
+                <div class="bg-light">
                   <div class="card">
-                    <div class="thumb-content p-2">
+                    <div class="p-2">
                       <!-- <div class="price">$200</div> -->
                       <a href="{{ route('visitor.show.book.details', $book->id) }}">
-                        <img class="ml-auto mr-auto" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
-                             alt="Card image cap" width="312px" height="400px">
+                        <img class="w-100" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
+                             alt="Card image cap"  height="300px">
                       </a>
                     </div>
                     <div class="card-body text-center">

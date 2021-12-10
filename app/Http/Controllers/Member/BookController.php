@@ -178,11 +178,11 @@ class BookController extends Controller
 
     $authUser = Auth()->user();
 
-    $books = Book::when($term = $request->input('term'), function ($q) use ($term) {
-      $q->where('title', 'LIKE', "%{$term}%");
+    $books = Book::when($request->has('query'), function ($q) use ($request) {
+      $q->where('title', 'LIKE', "%{$request->input('query')}%");
     })
-      ->when($category = $request->input('category'), function ($q) use ($category) {
-        $q->where('collection_id', $category);
+      ->when($request->has('category'), function ($q) use ($request) {
+        $q->where('collection_id', $request->input('category'));
       })
       ->addSelect(['distance' => User::select(\DB::raw("ST_Distance_Sphere(
         POINT($authUser->longitude, $authUser->latitude), POINT(longitude, latitude)
