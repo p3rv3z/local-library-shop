@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Member;
 use App\Http\Controllers\Controller;
 use App\Models\Author;
 use App\Models\Book;
+use App\Models\BookRequest;
 use App\Models\Category;
 use App\Models\City;
 use App\Models\Collection;
@@ -159,6 +160,10 @@ class BookController extends Controller
   public function showBookDetails(Book $book)
   {
     $authUser = \Auth::user();
+    $hasRequest = BookRequest::where('sender_id', $authUser->id)
+        ->where('book_id', $book->id)
+        ->where('status', 'Pending')
+        ->first() ?? null;
 
     $book = $book
       ->where('id', $book->id)
@@ -168,7 +173,7 @@ class BookController extends Controller
         ->limit(1)
       ])->first();
 
-    return view('visitor.books.show', compact('book'));
+    return view('visitor.books.show', compact('book', 'hasRequest'));
   }
 
   public function bookSearch(Request $request)

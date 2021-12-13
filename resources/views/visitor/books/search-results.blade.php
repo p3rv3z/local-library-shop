@@ -56,7 +56,7 @@
         <div class="col-lg-12">
           <div class="row">
             @forelse($books as $book)
-              <div class="col-3">
+              <div class="col-3 mb-4">
                 <!-- product card -->
                 <div class="bg-light">
                   <div class="card">
@@ -68,7 +68,7 @@
                       </a>
                     </div>
                     <div class="card-body text-center">
-                      <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ $book->title }}</a></h4>
+                      <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ Str::limit($book->title, 20) }}</a></h4>
                       <h6>Price: {{ $book->price }} TK.</h6>
                       <h6>Lending rate: {{ $book->lending_rate }} TK. per day</h6>
                       <h6>Distance: {{ toKilometer($book->distance) }}km  away</h6>

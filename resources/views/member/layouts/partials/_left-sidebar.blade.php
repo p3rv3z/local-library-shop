@@ -12,19 +12,24 @@
       <p>Joined at {{auth()->user()->created_at->format('M d, Y')}}</p>
     </div>
     <!-- Dashboard Links -->
+    @php
+      $total_Books = \App\Models\Book::where('owner_id', auth()->id())->count();
+      $total_requests = \App\Models\BookRequest::where('sender_id', auth()->id())->count();
+      $total_buy_requests = \App\Models\BookRequest::where('receiver_id', auth()->id())->where('type', 'Buy')->count();
+      $total_lend_requests = \App\Models\BookRequest::where('receiver_id', auth()->id())->where('type', 'Lend')->count();
+    @endphp
     <div class="widget user-dashboard-menu">
       <ul>
         <li @if (request()->is('member/profile*')) class="active" @endif><a href="{{ route('member.profile') }}"><i
               class="fa fa-user"></i> My Profile</a></li>
         <li @if (request()->is('member/books*')) class="active" @endif><a href="{{ route('member.books.index') }}"><i
-              class="fa fa-user"></i> My Books <span>5</span></a></li>
-        <li><a href="dashboard-favourite-ads.html"><i class="fa fa-bookmark-o"></i> My Orders <span>5</span></a></li>
-        <li><a href="dashboard-archived-ads.html"><i class="fa fa-bookmark-o"></i>My Sells <span>12</span></a></li>
-{{--        <li @if (request()->is('member/profile/settings*')) class="active" @endif><a--}}
-{{--            href="dashboard-pending-ads.html"><i class="fa fa-bookmark-o"></i> Lendign Requests<span>23</span></a>--}}
-{{--        </li>--}}
-        {{--        <li><a href="" data-toggle="modal" data-target="#deleteaccount"><i class="fa fa-power-off"></i>Delete--}}
-        {{--            Account</a></li>--}}
+              class="fa fa-book"></i> My Books <span>{{ $total_Books }}</span></a></li>
+        <li @if (request()->is('member/requests')) class="active" @endif><a href="{{ route('member.requests.index') }}"><i
+              class="fa fa-envelope"></i> My requests <span>{{ $total_requests }}</span></a></li>
+        <li @if (request()->is('member/requests-by-type/Buy')) class="active" @endif><a href="{{ route('member.requests-by-type.index', 'Buy') }}"><i
+              class="fa fa-envelope"></i> Buy requests <span>{{ $total_buy_requests }}</span></a></li>
+        <li @if (request()->is('member/requests-by-type/Lend')) class="active" @endif><a href="{{ route('member.requests-by-type.index', 'Lend') }}"><i
+              class="fa fa-envelope"></i> Lend requests <span>{{ $total_lend_requests }}</span></a></li>
       </ul>
     </div>
 

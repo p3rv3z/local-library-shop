@@ -24,6 +24,7 @@
                     <ul class="list-inline">
                       <li class="list-inline-item"><i class="fa fa-user-o"></i> By <a
                           href="">{{ $book->author->name }}</a></li>
+                      <br>
                       <li class="list-inline-item"><i class="fa fa-folder-open-o"></i> Category<a
                           href="">{{ $book->category->name }}</a></li>
                       {{--                      <li class="list-inline-item"><i class="fa fa-location-arrow"></i> Location<a href=""></a></li>--}}
@@ -32,18 +33,39 @@
                   <h3 class="mt-4">Price: {{ $book->price }} TK.</h3>
                   <h3>Lending rate: {{ $book->lending_rate }} TK. per day</h3>
                   <div class="mt-4">
-                    <a class="btn btn-success">Take A Look</a>
+                    <a class="btn btn-primary">Take A Look</a>
                   </div>
                   <div class="mt-4">
-                    <a class="btn btn-warning">Request to Buy</a>
-                    <a class="btn btn-info">Request to Lend</a>
+                    @if(!$hasRequest)
+                      <button type="button"
+                              class="btn btn-success"
+                              data-toggle="modal" data-target="#buyRequest">
+                        Request to Buy
+                      </button>
+
+                      <button type="button"
+                              class="btn btn-warning"
+                              data-toggle="modal" data-target="#lendRequest">
+                        Request to Lend
+                      </button>
+                    @endif
+
+
+                    @if($hasRequest)
+                      <button type="button"
+                              class="btn btn-danger"
+                              data-toggle="modal" data-target="#cancelRequest">Cancel {{$hasRequest->type}} Request
+                      </button>
+                      <h4 class="text-info mt-2">Your {{ strtolower($hasRequest->type) }} request status
+                        is {{ strtolower($hasRequest->status) }}.</h4>
+                    @endif
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-12">
           <div class="product-details">
           {{--            <h1 class="product-title">Hp Dual Core 2gb Ram-Slim Laptop Available In Very Low Price</h1>--}}
           {{--            <div class="product-meta">--}}
@@ -65,11 +87,16 @@
           <!-- product slider -->
 
             <div class="content mt-5 pt-5">
-              <ul class="nav nav-pills  justify-content-center" id="pills-tab" role="tablist">
+              <ul class="nav nav-pills" id="pills-tab" role="tablist">
                 <li class="nav-item">
                   <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-home" role="tab"
                      aria-controls="pills-home"
                      aria-selected="true">Product Details</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" id="pills-sample-tab" data-toggle="pill" href="#pills-sample" role="tab"
+                     aria-controls="pills-sample"
+                     aria-selected="true">Read Sample</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab"
@@ -86,6 +113,10 @@
                 <div class="tab-pane fade show active" id="pills-home" role="tabpanel" aria-labelledby="pills-home-tab">
                   <h3 class="tab-title">Description</h3>
                   <p>{{ $book->description }}</p>
+                </div>
+                <div class="tab-pane fade" id="pills-sample" role="tabpanel" aria-labelledby="pills-sample-tab">
+                  <h3 class="tab-title">Sample</h3>
+                  <embed src="{{ $book->getFirstMediaUrl('book-sample-pdfs') }}" class="w-100" height="700px"/>
                 </div>
                 <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
                   <h3 class="tab-title">Product Specifications</h3>
@@ -258,4 +289,106 @@
     </div>
     <!-- Container End -->
   </section>
+
+  <!-- Buy Request Modal -->
+  <div class="modal fade" id="buyRequest" tabindex="-1" role="dialog" aria-labelledby="buyRequestLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content p-2">
+        <div class="modal-header">
+          <h5 class="modal-title" id="buyRequestLabel">Request to Buy</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{ route('member.buy-request.create', $book->id) }}" id="buy-request">
+            @csrf
+            {{--note--}}
+            <div class="form-group">
+              <label for="sender_note">Note</label>
+              <textarea name="sender_note" class="form-control" id="sender_note"
+                        rows="5"
+                        placeholder="Write a note"
+              >{{ old('sender_note') }}</textarea>
+              @error('sender_note')
+              <span class="text-danger"><b>{{$message}}</b></span>
+              @enderror
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" form="buy-request">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Lend Request Modal -->
+  <div class="modal fade" id="lendRequest" tabindex="-1" role="dialog" aria-labelledby="lendRequestLabel"
+       aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+      <div class="modal-content p-2">
+        <div class="modal-header">
+          <h5 class="modal-title" id="lendRequestLabel">Request to Lend</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form method="POST" action="{{ route('member.lend-request.create', $book->id) }}" id="lend-request">
+            @csrf
+            {{--note--}}
+            <div class="form-group">
+              <label for="sender_note">Note</label>
+              <textarea name="sender_note" class="form-control" id="sender_note"
+                        rows="5"
+                        placeholder="Write a note"
+              >{{ old('sender_note') }}</textarea>
+              @error('sender_note')
+              <span class="text-danger"><b>{{$message}}</b></span>
+              @enderror
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button class="btn btn-primary" form="lend-request">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  @if($hasRequest)
+    <div class="modal fade" id="cancelRequest" tabindex="-1" role="dialog" aria-labelledby="cancelRequestLabel"
+         aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+        <div class="modal-content p-2">
+          <div class="modal-header">
+            <h5 class="modal-title" id="cancelRequestLabel">Cancel {{ strtolower($hasRequest->type) }} request</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <h3>Are you sure?</h3>
+            <form class="d-none" method="POST" action="{{ route('member.request.cancel', $hasRequest->id) }}"
+                  id="cancel-request">
+              @csrf
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+            <button class="btn btn-primary" form="cancel-request">Yes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  @endif
 @endsection
+
+@push('js')
+  <script>
+
+  </script>
+@endpush

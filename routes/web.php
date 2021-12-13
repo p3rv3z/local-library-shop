@@ -6,6 +6,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Member\BookController;
 use App\Http\Controllers\Member\ProfileControlller;
+use App\Http\Controllers\Member\RequestControlller;
 use Illuminate\Support\Facades\Route;
 
 Auth::routes();
@@ -31,6 +32,14 @@ Route::middleware('auth')
   Route::patch('member/change/password', [ProfileControlller::class, 'changePassword'])->name('change.password');
   Route::patch('member/set/location', [ProfileControlller::class, 'setLocation'])->name('set.location');
   Route::resource('member/books', BookController::class);
+
+  // requests
+  Route::post('member/books/{book}/buy-request', [RequestControlller::class, 'sentBuyRequest'])->name('buy-request.create');
+  Route::post('member/books/{book}/lend-request', [RequestControlller::class, 'sentLendRequest'])->name('lend-request.create');
+  Route::post('member/books/requests/{bookRequest}/cancel', [RequestControlller::class, 'cancelRequest'])->name('request.cancel');
+  Route::get('member/requests', [RequestControlller::class, 'showRequests'])->name('requests.index');
+  Route::get('member/requests-by-type/{type}', [RequestControlller::class, 'showRequestsByType'])->name('requests-by-type.index');
+    Route::post('member/books/requests/{bookRequest}/update', [RequestControlller::class, 'updateRequest'])->name('request.update');
 });
 
 

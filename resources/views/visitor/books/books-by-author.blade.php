@@ -22,15 +22,13 @@
                     <div class="thumb-content p-2">
                       <!-- <div class="price">$200</div> -->
                       <a href="{{ route('visitor.show.book.details', $book->id) }}">
-                        <img class="ml-auto mr-auto" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
-                             alt="Card image cap" width="312px" height="400px">
+                        <img class="ml-auto mr-auto w-100" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
+                             alt="Card image cap" height="400px">
                       </a>
                     </div>
                     <div class="card-body text-center">
-                      <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ $book->title }}</a></h4>
-                      <h6>Price: {{ $book->price }} TK.</h6>
-                      <h6>Lending rate: {{ $book->lending_rate }} TK. per day</h6>
-                      <h6>Distance: {{ toKilometer($book->distance) }}km  away</h6>
+                      <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ Str::limit($book->title, 12) }}</a></h4>
+                      <p class="text-primary">Distance: {{ toKilometer($book->distance) }}km  away</p>
                     </div>
                   </div>
                 </div>
@@ -40,8 +38,6 @@
             @endforelse
           </div>
         </div>
-
-
       </div>
     </div>
   </section>

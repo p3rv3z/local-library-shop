@@ -15,18 +15,9 @@
               <h2>Popular Categories</h2>
               <ul class="list-inline">
                 <li class="list-inline-item">
-                  <a href="category.html"><i class="fa fa-bed"></i> Adventure</a></li>
-                <li class="list-inline-item">
-                  <a href="category.html"><i class="fa fa-grav"></i> History</a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="category.html"><i class="fa fa-car"></i> Fiction</a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="category.html"><i class="fa fa-cutlery"></i> Science Finction</a>
-                </li>
-                <li class="list-inline-item">
-                  <a href="category.html"><i class="fa fa-coffee"></i> Thriller</a>
+                  @foreach($collections as $collection)
+                    <a href="{{ route('visitor.show.books.by.categories', $collection->id) }}">{{$collection->name}}</a>
+                  @endforeach
                 </li>
               </ul>
             </div>
@@ -97,15 +88,13 @@
                     <div class="thumb-content p-2">
                       <!-- <div class="price">$200</div> -->
                       <a href="single.html">
-                        <img class="ml-auto mr-auto" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
-                             alt="Card image cap" width="312px" height="400px">
+                        <img class="ml-auto mr-auto w-100" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
+                             alt="Card image cap" height="250px">
                       </a>
                     </div>
                     <div class="card-body text-center">
-                      <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ $book->title }}</a></h4>
-                      <h6>Price: {{ $book->price }} TK.</h6>
-                      <h6>Lending rate: {{ $book->lending_rate }} TK. per day</h6>
-                      <h6>Distance: {{ toKilometer($book->distance) }}km  away</h6>
+                      <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ Str::limit($book->title, 12) }}</a></h4>
+                      <p class="text-primary">Distance: {{ toKilometer($book->distance) }}km  away</p>
                     </div>
                   </div>
                 </div>
@@ -141,35 +130,13 @@
                   <div class="thumb-content p-2">
                     <!-- <div class="price">$200</div> -->
                     <a href="single.html">
-                      <img class="ml-auto mr-auto" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
-                           alt="Card image cap" width="312px" height="400px">
+                      <img class="ml-auto mr-auto w-100" src="{{ $book->getFirstMediaUrl('book-covers') ? $book->getFirstMediaUrl('book-covers') : 'http://via.placeholder.com/312x400'}}"
+                           alt="Card image cap" height="250px">
                     </a>
                   </div>
                   <div class="card-body text-center">
-                    <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ $book->title }}</a></h4>
-                    <h6>Price: {{ $book->price }} TK.</h6>
-                    <h6>Lending rate: {{ $book->lending_rate }} TK. per day</h6>
-                    <h6>Distance: {{ toKilometer($book->distance) }}km  away</h6>
-{{--                    <ul class="list-inline product-meta">--}}
-{{--                      <li class="list-inline-item">--}}
-{{--                        <a href="single.html"><i class="fa fa-folder-open-o">{{ $book->category->name }}</i></a>--}}
-{{--                      </li>--}}
-
-{{--                      <li class="list-inline-item">--}}
-{{--                        <a href="#"><i class="fa fa-calendar"></i>26th December</a>--}}
-{{--                      </li>--}}
-{{--                    </ul>--}}
-{{--                    <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo,--}}
-{{--                      aliquam!</p>--}}
-{{--                    <div class="product-ratings">--}}
-{{--                      <ul class="list-inline">--}}
-{{--                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>--}}
-{{--                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>--}}
-{{--                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>--}}
-{{--                        <li class="list-inline-item selected"><i class="fa fa-star"></i></li>--}}
-{{--                        <li class="list-inline-item"><i class="fa fa-star"></i></li>--}}
-{{--                      </ul>--}}
-{{--                    </div>--}}
+                    <h4 class="card-title"><a href="{{ route('visitor.show.book.details', $book->id) }}">{{ Str::limit($book->title, 12) }}</a></h4>
+                    <p class="text-primary">Distance: {{ toKilometer($book->distance) }}km  away</p>
                   </div>
                 </div>
               </div>
