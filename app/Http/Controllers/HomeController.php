@@ -6,7 +6,7 @@ use App\Models\Author;
 use App\Models\Book;
 use App\Models\BookRequest;
 use App\Models\City;
-use App\Models\Collection;
+use App\Models\Category;
 use App\Models\User;
 use Illuminate\Http\Request;
 
@@ -27,7 +27,7 @@ class HomeController extends Controller
     $authUser = auth()->user();
 
     $authors = Author::where('status', 1)->get();
-    $collections = Collection::where('status', 1)->get();
+    $collections = Category::where('status', 1)->get();
     $cities = City::where('status', 1)->get();
 
     $latest_books = Book::orderByDesc('id')
@@ -49,7 +49,7 @@ class HomeController extends Controller
       ->take(5);
 
     $popular_authors = Author::where('status', 1)->get()->take(5);
-    $popular_collections = Collection::where('status', 1)->get()->take(5);
+    $popular_collections = Category::where('status', 1)->get()->take(5);
 
     return view('visitor.home', compact('authors', 'collections', 'cities', 'popular_books', 'latest_books', 'popular_authors', 'popular_collections'));
   }

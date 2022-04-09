@@ -325,10 +325,10 @@ return [
       'can' => ['dashboard']
     ],
     [
-      'text' => 'Collections',
-      'route'  => 'admin.collections.index',
+      'text' => 'Categories',
+      'route'  => 'admin.categories.index',
       'icon' => 'fas fa-fw fa-clipboard mr-1',
-      'can' => ['collections.create', 'collections.edit',  'collections.delete']
+      'can' => ['categories.create', 'categories.edit',  'categories.delete']
     ],
     [
       'text' => 'Cities',

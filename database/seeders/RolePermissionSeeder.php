@@ -41,9 +41,9 @@ class RolePermissionSeeder extends Seeder
       ['name' => 'cities.edit'],
       ['name' => 'cities.delete'],
 
-      ['name' => 'collections.create'],
-      ['name' => 'collections.edit'],
-      ['name' => 'collections.delete'],
+      ['name' => 'categories.create'],
+      ['name' => 'categories.edit'],
+      ['name' => 'categories.delete'],
 
       ['name' => 'authors.create'],
       ['name' => 'authors.edit'],
@@ -58,7 +58,7 @@ class RolePermissionSeeder extends Seeder
       'dashboard',
       'settings',
       'cities.create', 'cities.edit', 'cities.delete',
-      'collections.create', 'collections.edit', 'collections.delete',
+      'categories.create', 'categories.edit', 'categories.delete',
       'authors.create', 'authors.edit', 'authors.delete',
     ]);
   }
